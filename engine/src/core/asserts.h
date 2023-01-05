@@ -26,7 +26,7 @@ KAPI void report_assertion_failure(const char *expression, const char *message, 
             debugBreak();                                            \
         }                                                            \
     }
-
+ 
 #define KASSERT_MSG(expr, message)                                        \
     {                                                                     \
         if (expr)                                                         \

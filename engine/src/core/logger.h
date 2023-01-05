@@ -4,6 +4,8 @@
 
 #define LOG_WARN_ENABLED 1
 #define LOG_INFO_ENABLED 1
+#define LOG_DEBUG_ENABLED 1
+#define LOG_TRACE_ENABLED 1
 
 #if KRELEASE == 1
 #define LOG_DEBUG_ENABLED 0
