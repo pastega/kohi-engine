@@ -12,8 +12,7 @@
 #define LOG_TRACE_ENABLED 0
 #endif
 
-typedef enum log_level
-{
+typedef enum log_level {
     LOG_LEVEL_FATAL = 0,
     LOG_LEVEL_ERROR = 1,
     LOG_LEVEL_WARN = 2,
@@ -25,7 +24,7 @@ typedef enum log_level
 b8 initilialize_logging();
 void shutdown_logging();
 
-KAPI void log_output(log_level level, const char *message, ...);
+KAPI void log_output(log_level level, const char* message, ...);
 // Logs a fatal-level message.
 #define KFATAL(message, ...) log_output(LOG_LEVEL_FATAL, message, ##__VA_ARGS__);
 

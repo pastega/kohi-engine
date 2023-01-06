@@ -13,27 +13,21 @@
 #define debugBreak() __builtin_trap()
 #endif // _MSC_VER
 
-KAPI void report_assertion_failure(const char *expression, const char *message, const char *file, i32 line);
+KAPI void report_assertion_failure(const char* expression, const char* message, const char* file, i32 line);
 
 #define KASSERT(expr)                                                \
     {                                                                \
-        if (expr)                                                    \
-        {                                                            \
-        }                                                            \
-        else                                                         \
-        {                                                            \
+        if (expr) {                                                  \
+        } else {                                                     \
             report_assertion_failure(#expr, "", __FILE__, __LINE__); \
             debugBreak();                                            \
         }                                                            \
     }
- 
+
 #define KASSERT_MSG(expr, message)                                        \
     {                                                                     \
-        if (expr)                                                         \
-        {                                                                 \
-        }                                                                 \
-        else                                                              \
-        {                                                                 \
+        if (expr) {                                                       \
+        } else {                                                          \
             report_assertion_failure(#expr, message, __FILE__, __LINE__); \
             debugBreak();                                                 \
         }                                                                 \
@@ -42,11 +36,8 @@ KAPI void report_assertion_failure(const char *expression, const char *message, 
 #ifdef _DEBUG
 #define KASSERT_DEBUG(expr)                                          \
     {                                                                \
-        if (expr)                                                    \
-        {                                                            \
-        }                                                            \
-        else                                                         \
-        {                                                            \
+        if (expr) {                                                  \
+        } else {                                                     \
             report_assertion_failure(#expr, "", __FILE__, __LINE__); \
             debugBreak();                                            \
         }                                                            \
