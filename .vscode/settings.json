@@ -3,6 +3,7 @@
         "defines.h": "c",
         "intrin.h": "c",
         "windows.h": "c",
-        "platform.h": "c"
+        "platform.h": "c",
+        "application.h": "c"
     }
 }

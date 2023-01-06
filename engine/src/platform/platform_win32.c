@@ -113,6 +113,7 @@ void platform_shutdown(platform_state* plat_state)
         DestroyWindow(state->hwnd);
         state->hwnd = 0;
     }
+    free(plat_state->internal_state);
 }
 
 b8 platform_pump_messages(platform_state* plat_state)
