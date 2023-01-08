@@ -3,6 +3,7 @@
 
 #include "logger.h"
 
+#include "core/kmemory.h"
 #include "platform/platform.h"
 
 typedef struct application_state {
@@ -71,6 +72,8 @@ void application_destroy()
 
 b8 application_run()
 {
+    KINFO(get_memory_usage_str());
+
     while (app_state.is_running) {
         if (!platform_pump_messages(&app_state.platform))
             app_state.is_running = FALSE;
