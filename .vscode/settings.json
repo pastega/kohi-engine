@@ -5,6 +5,9 @@
         "windows.h": "c",
         "platform.h": "c",
         "application.h": "c",
-        "kmemory.h": "c"
+        "kmemory.h": "c",
+        "tuple": "cpp",
+        "utility": "cpp",
+        "darray.h": "c"
     }
 }
