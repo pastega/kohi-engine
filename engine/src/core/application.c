@@ -21,6 +21,11 @@ typedef struct application_state {
 static application_state app_state;
 static b8 initialized = FALSE;
 
+// Event handlers
+
+b8 application_on_event(u16 code, void* sender, void* listener_inst, event_context context);
+b8 application_on_key(u16 code, void* sender, void* listener_inst, event_context context);
+
 b8 application_create(game* game_inst)
 {
     if (initialized) {
@@ -49,6 +54,10 @@ b8 application_create(game* game_inst)
         KERROR("Event system failed initialization. Application cannot continue.");
         return FALSE;
     }
+
+    event_register(EVENT_CODE_APPLICATION_QUIT, 0, application_on_event);
+    event_register(EVENT_CODE_KEY_PRESSED, 0, application_on_key);
+    event_register(EVENT_CODE_KEY_RELEASED, 0, application_on_key);
 
     b8 startup_ok = platform_startup(
         &app_state.platform,
@@ -118,4 +127,41 @@ b8 application_run()
     platform_shutdown(&app_state.platform);
 
     return TRUE;
+}
+
+b8 application_on_event(u16 code, void* sender, void* listener_inst, event_context context)
+{
+    switch (code) {
+    case EVENT_CODE_APPLICATION_QUIT:
+        KINFO("EVENT_CODE_APPLICATION_QUIT received, shutting down.\n");
+        app_state.is_running = FALSE;
+        return TRUE;
+    default:
+        return FALSE;
+    }
+
+    return FALSE;
+}
+
+b8 application_on_key(u16 code, void* sender, void* listener_inst, event_context context)
+{
+    u16 key_code = context.data.u16[0];
+
+    switch (code) {
+    case EVENT_CODE_KEY_PRESSED:
+        if (key_code == KEY_ESCAPE) {
+            // Technically firing an event to itself, but there may be other listeners
+            event_context data = {};
+            event_fire(EVENT_CODE_APPLICATION_QUIT, 0, data);
+
+            return TRUE;
+        }
+
+        KDEBUG("'%c' pressed in window.", key_code);
+        break;
+    case EVENT_CODE_KEY_RELEASED:
+        KDEBUG("'%c' released in window.", key_code);
+        break;
+    }
+    return FALSE;
 }
