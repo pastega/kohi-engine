@@ -8,6 +8,9 @@
         "kmemory.h": "c",
         "tuple": "cpp",
         "utility": "cpp",
-        "darray.h": "c"
+        "darray.h": "c",
+        "renderer_frontend.h": "c",
+        "renderer_types.inl": "c",
+        "renderer_backend.h": "c"
     }
 }
