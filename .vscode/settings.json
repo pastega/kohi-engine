@@ -11,6 +11,19 @@
         "darray.h": "c",
         "renderer_frontend.h": "c",
         "renderer_types.inl": "c",
-        "renderer_backend.h": "c"
-    }
+        "renderer_backend.h": "c",
+        "vulkan_types.inl": "c",
+        "vulkan.h": "c"
+    },
+    "cSpell.words": [
+        "kallocate",
+        "KAPI",
+        "KASSERT",
+        "kcopy",
+        "KERROR",
+        "KFATAL",
+        "Kohi",
+        "KWARN",
+        "VKAPI"
+    ]
 }
