@@ -13,17 +13,23 @@
         "renderer_types.inl": "c",
         "renderer_backend.h": "c",
         "vulkan_types.inl": "c",
-        "vulkan.h": "c"
+        "vulkan.h": "c",
+        "vulkan_device_requirements.h": "c",
+        "cmath": "c"
     },
     "cSpell.words": [
+        "hinstance",
         "kallocate",
         "KAPI",
         "KASSERT",
         "kcopy",
         "KERROR",
         "KFATAL",
+        "kfree",
         "Kohi",
         "KWARN",
+        "kzero",
+        "SWAPCHAIN",
         "VKAPI"
     ]
 }

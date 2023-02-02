@@ -1,6 +1,7 @@
 #include "vulkan_backend.h"
 #include "vulkan_platform.h"
 
+#include "vulkan_device.h"
 #include "vulkan_types.inl"
 
 #include "core/kstring.h"
@@ -118,6 +119,20 @@ b8 vulkan_renderer_backend_initialize(renderer_backend* backend, const char* app
     KDEBUG("Vulkan debug created.");
 #endif
 
+    // Surface creation
+    KDEBUG("Creating Vulkan surface...");
+    if (!platform_create_vulkan_surface(plat_state, &context)) {
+        KERROR("Failed to create platform surface!");
+        return FALSE;
+    }
+    KDEBUG("Vulkan surface created");
+
+    // Device creation
+    if (!vulkan_device_create(&context)) {
+        KERROR("Failed to create device!");
+        return FALSE;
+    }
+
     KINFO("Vulkan renderer initialized successfully.");
 
     darray_destroy(required_extensions);
@@ -129,6 +144,16 @@ b8 vulkan_renderer_backend_initialize(renderer_backend* backend, const char* app
 
 void vulkan_renderer_backend_shutdown(renderer_backend* backend)
 {
+    // Destroy in the opposite order of creation
+    KDEBUG("Destroying Vulkan device...");
+    vulkan_device_destroy(&context);
+
+    KDEBUG("Destroying Vulkan surface...");
+    if (context.surface) {
+        vkDestroySurfaceKHR(context.instance, context.surface, context.allocator);
+        context.surface = 0;
+    }
+
 #if defined(_DEBUG)
     KDEBUG("Destroying Vulkan debugger...");
     if (context.debug_messenger) {
@@ -136,6 +161,7 @@ void vulkan_renderer_backend_shutdown(renderer_backend* backend)
         func(context.instance, context.debug_messenger, context.allocator);
     }
 #endif
+
     KDEBUG("Destroying Vulkan instance...");
     vkDestroyInstance(context.instance, context.allocator);
 }
