@@ -17,6 +17,8 @@ VKAPI_ATTR VkBool32 VKAPI_CALL vk_debug_callback(
     const VkDebugUtilsMessengerCallbackDataEXT* callback_data,
     void* user_data);
 
+i32 find_memory_index(u32 type_filter, u32 property_flags);
+
 b8 vulkan_renderer_backend_initialize(renderer_backend* backend, const char* application_name, struct platform_state* plat_state)
 {
     // TODO: custom allocator
@@ -202,4 +204,20 @@ VKAPI_ATTR VkBool32 VKAPI_CALL vk_debug_callback(
         break;
     }
     return VK_FALSE;
+}
+
+i32 find_memory_index(u32 type_filter, u32 property_flags)
+{
+    VkPhysicalDeviceMemoryProperties memory_properties;
+    vkGetPhysicalDeviceMemoryProperties(context.device.physical_device, &memory_properties);
+
+    for (u32 i = 0; i < memory_properties.memoryTypeCount; ++i) {
+        // Check each memory type to see if its bit is set to 1.
+        if (type_filter & (1 << i) && (memory_properties.memoryTypes[i].propertyFlags & property_flags)) {
+            return i;
+        }
+    }
+
+    KWARN("Unable to find suitable memory type!");
+    return -1;
 }

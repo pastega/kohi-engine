@@ -18,6 +18,7 @@
         "cmath": "c"
     },
     "cSpell.words": [
+        "framebuffer",
         "hinstance",
         "kallocate",
         "KAPI",
@@ -29,6 +30,8 @@
         "Kohi",
         "KWARN",
         "kzero",
+        "Requery",
+        "SFLOAT",
         "SWAPCHAIN",
         "VKAPI"
     ]
